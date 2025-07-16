@@ -1,0 +1,105 @@
+/* app/search/styles.module.css */
+.instantSearch {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  font-family: sans-serif;
+}
+
+.leftPanel {
+  float: left;
+  width: 250px;
+  padding: 1rem;
+}
+
+.rightPanel {
+  margin-left: 270px;
+  padding: 1rem;
+}
+
+.hit-name {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.hit-description {
+  font-style: italic;
+}
+
+.hit-info {
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.hitCard {
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.productImage {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+
+.activeBadge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #34d399; /* green */
+  color: white;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.archivedBadge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #d8854e; /* green */
+  color: white;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.draftBadge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #c2c5bb; /* green */
+  color: white;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.hitName {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.hitDescription,
+.hitInfo {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
