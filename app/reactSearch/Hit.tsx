@@ -92,13 +92,11 @@ const Hit = ({ hit }: any) => {
                 </div>
             </div>
 
-            {/* Full Screen Modal Popup */}
             {isPopupVisible && (
                 <>
                     <div className={styles.popupBackdrop} onClick={handleBackdropClick} />
                     <div className={styles.productModal} onClick={handlePopupClick}>
                         <div className={styles.modalContent}>
-                            {/* Modal Header */}
                             <div className={styles.modalHeader}>
                                 <h2 className={styles.modalTitle}>Product Details</h2>
                                 <button
@@ -113,9 +111,7 @@ const Hit = ({ hit }: any) => {
                                 </button>
                             </div>
 
-                            {/* Modal Body */}
                             <div className={styles.modalBody}>
-                                {/* Left Side - Image */}
                                 <div className={styles.modalImageSection}>
                                     <div className={styles.modalImageWrapper}>
                                         <img
@@ -129,7 +125,6 @@ const Hit = ({ hit }: any) => {
                                     </div>
                                 </div>
 
-                                {/* Right Side - Details */}
                                 <div className={styles.modalDetailsSection}>
                                     <div className={styles.modalProductInfo}>
                                         <h1 className={styles.modalProductTitle}>
@@ -170,14 +165,14 @@ const Hit = ({ hit }: any) => {
                                                 </div>
 
                                                 <div className={styles.modalMetaItem}>
-                                                    <span className={styles.modalLabel}>Status:</span>
+                                                    <span className={styles.modalLabel}>Number of Variants:</span>
                                                     <span className={styles.modalValue}>
-                                                        {capitalizeFirstLetter(hit.STATUS)}
+                                                        {capitalizeFirstLetter(hit.TOTAL_VARIANTS)}
                                                     </span>
                                                 </div>
 
                                                 <div className={styles.modalMetaItem}>
-                                                    <span className={styles.modalLabel}>Created Date:</span>
+                                                    <span className={styles.modalLabel}>Created On:</span>
                                                     <span className={styles.modalValue}>{createdAt}</span>
                                                 </div>
 
