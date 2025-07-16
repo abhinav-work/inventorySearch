@@ -23,7 +23,8 @@ export async function POST(request: Request) {
       Papa.parse(csvText, {
         header: true,
         skipEmptyLines: true,
-        complete: (results) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        complete: (results: any) => {
           resolve({
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             data: results?.data as any[],
@@ -44,6 +45,7 @@ export async function POST(request: Request) {
     // console.log(fields);
     // console.log(data[0]);
     // console.log(data.length);
+
     const dataToConsider = [];
     for (let index = 0; index < data.length; index++) {
       let parsedPriceRange: PriceRange = { min_variant_price: { amount: 0, currency_code: 'USD' }, max_variant_price: { amount: 0, currency_code: 'USD' } },
@@ -98,9 +100,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, error: error.message || 'Unknown error' });
   }
 }
-
-
-// export async function GET() {
-//   const x = await meilisearchClient.tasks.getTasks()
-//   console.log(require('util').inspect(x, 0, null, 1))
-// }

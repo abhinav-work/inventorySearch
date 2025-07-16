@@ -1,18 +1,17 @@
 import { MeiliSearch } from 'meilisearch';
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
-console.log(process.env)
 const MEILISEARCH_HOST = process.env.NEXT_PUBLIC_MEILISEARCH_HOST;
 const MEILISEARCH_API_KEY = process.env.NEXT_PUBLIC_MEILISEARCH_API_KEY;
 
 export const meilisearchClient = new MeiliSearch({
     host: MEILISEARCH_HOST,
-    apiKey: MEILISEARCH_API_KEY, // use server-only admin key
+    apiKey: MEILISEARCH_API_KEY,
 });
 
 
 export const { searchClient } = instantMeiliSearch(
     MEILISEARCH_HOST,
-    MEILISEARCH_API_KEY, // use server-only admin key
+    MEILISEARCH_API_KEY,
     {
         primaryKey: 'ID',
         keepZeroFacets: true,
@@ -27,16 +26,16 @@ export const MEILISEARCH_PRODUCTS_INDEX = 'products'
 await meilisearchClient.index(MEILISEARCH_PRODUCTS_INDEX).updateFaceting({
     maxValuesPerFacet: 1000,
     sortFacetValuesBy: {
-        "*": "alpha",           // Default alphabetical for all facets
-        "TAGS_ARRAY": "count",  // Sort tags by popularity (most used first)
-        "VENDOR": "count"       // Sort vendors by popularity
+        "*": "alpha",
+        "TAGS_ARRAY": "count",
+        "VENDOR": "count"
     }
 })
 
 await meilisearchClient.index(MEILISEARCH_PRODUCTS_INDEX).updateTypoTolerance({
-  enabled: true,
-  minWordSizeForTypos: {
-    oneTypo: 5,    // Allow one typo for words >= 5 characters
-    twoTypos: 9    // Allow two typos for words >= 9 characters
-  }
+    enabled: true,
+    minWordSizeForTypos: {
+        oneTypo: 0,
+        twoTypos: 0
+    }
 })
