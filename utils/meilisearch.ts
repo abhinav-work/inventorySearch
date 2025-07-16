@@ -22,7 +22,6 @@ export const { searchClient } = instantMeiliSearch(
 
 export const MEILISEARCH_PRODUCTS_INDEX = 'products'
 
-// Update faceting settings
 await meilisearchClient.index(MEILISEARCH_PRODUCTS_INDEX).updateFaceting({
     maxValuesPerFacet: 1000,
     sortFacetValuesBy: {
@@ -35,7 +34,26 @@ await meilisearchClient.index(MEILISEARCH_PRODUCTS_INDEX).updateFaceting({
 await meilisearchClient.index(MEILISEARCH_PRODUCTS_INDEX).updateTypoTolerance({
     enabled: true,
     minWordSizeForTypos: {
-        oneTypo: 0,
-        twoTypos: 0
+        oneTypo: 4,
+        twoTypos: 8
     }
 })
+
+await meilisearchClient.index(MEILISEARCH_PRODUCTS_INDEX).updateFilterableAttributes([
+    'VENDOR',
+    'STATUS',
+    'TAGS_ARRAY',
+    'PRODUCT_TYPE',
+    'TRACKS_INVENTORY'
+])
+await meilisearchClient.index(MEILISEARCH_PRODUCTS_INDEX).updateSearchableAttributes([
+    'TITLE',
+    'DESCRIPTION',
+    'VENDOR',
+])
+await meilisearchClient.index(MEILISEARCH_PRODUCTS_INDEX).updateSortableAttributes([
+    'CREATED_AT_UNIX',
+    'UPDATED_AT_UNIX',
+    'MAX_VARIANT_PRICE',
+    'MIN_VARIANT_PRICE'
+])

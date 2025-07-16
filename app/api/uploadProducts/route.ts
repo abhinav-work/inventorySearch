@@ -7,6 +7,7 @@ import moment from 'moment';
 
 export async function POST(request: Request) {
   try {
+    const CHUNK_SIZE = 500;
     const formData = await request.formData();
     const file = formData.get('file') as File;
 
@@ -46,6 +47,7 @@ export async function POST(request: Request) {
     // console.log(data[0]);
     // console.log(data.length);
 
+    let chunkCount = 1;
     const dataToConsider = [];
     for (let index = 0; index < data.length; index++) {
       let parsedPriceRange: PriceRange = { min_variant_price: { amount: 0, currency_code: 'USD' }, max_variant_price: { amount: 0, currency_code: 'USD' } },
@@ -69,30 +71,15 @@ export async function POST(request: Request) {
         MAX_VARIANT_CURRENCY_CODE: parsedPriceRange?.max_variant_price?.currency_code,
         FEATURED_IMAGE_URL: featuredImage?.url
       })
+
+      if (!(dataToConsider.length % CHUNK_SIZE) || (index == (data?.length-1))) {
+        console.log(`Chunk (${chunkCount++}) of size ${CHUNK_SIZE} processed`);
+        await meilisearchClient.index(MEILISEARCH_PRODUCTS_INDEX).addDocuments(dataToConsider, { primaryKey: 'ID' });
+        dataToConsider.length = 0;
+      }
     }
 
-    const index = meilisearchClient.index(MEILISEARCH_PRODUCTS_INDEX);
-    index.updateFilterableAttributes([
-      'VENDOR',
-      'STATUS',
-      'TAGS_ARRAY',
-      'PRODUCT_TYPE',
-      'TRACKS_INVENTORY'
-    ])
-    index.updateSearchableAttributes([
-      'TITLE',
-      'DESCRIPTION',
-      'VENDOR',
-    ])
-    index.updateSortableAttributes([
-      'CREATED_AT_UNIX',
-      'UPDATED_AT_UNIX',
-      'MAX_VARIANT_PRICE',
-      'MIN_VARIANT_PRICE'
-    ])
-
-    const task = await index.addDocuments(dataToConsider, { primaryKey: 'ID' });
-    return NextResponse.json({ success: true, message: `Documents import has been ${task.status}` });
+    return NextResponse.json({ success: true, message: `Documents import has been enqueued` });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {

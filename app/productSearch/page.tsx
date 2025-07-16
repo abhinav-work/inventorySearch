@@ -20,6 +20,8 @@ import Hit from './Hit';
 import { capitalizeFirstLetter } from '@/common/functions';
 import toast from 'react-hot-toast';
 
+const COMMON_TIMEOUT_TIME_IN_MILLISECONDS = 6000;
+
 const SearchPage = () => {
     const [isFiltersOpen, setIsFiltersOpen] = useState(false);
     const [isImporting, setIsImporting] = useState(false);
@@ -60,8 +62,8 @@ const SearchPage = () => {
                     toast.error(json.message);
                 }
                 setIsImporting(false);
-                toast.loading('Refreshing data...', { duration: 4000 });
-                setTimeout(() => { window.location.reload() }, 4000)
+                toast.loading('Refreshing data...', { duration: COMMON_TIMEOUT_TIME_IN_MILLISECONDS });
+                setTimeout(() => { window.location.reload() }, COMMON_TIMEOUT_TIME_IN_MILLISECONDS)
             };
             fileInput.click();
         } catch (error) {
@@ -84,8 +86,8 @@ const SearchPage = () => {
                 } else {
                     toast.error('Upload failed');
                 }
-                toast.loading('Refreshing data...', { duration: 4000 });
-                setTimeout(() => { window.location.reload() }, 4000)
+                toast.loading('Refreshing data...', { duration: COMMON_TIMEOUT_TIME_IN_MILLISECONDS });
+                setTimeout(() => { window.location.reload() }, COMMON_TIMEOUT_TIME_IN_MILLISECONDS)
                 return resolve(true);
             } catch (error) {
                 console.log(error)
