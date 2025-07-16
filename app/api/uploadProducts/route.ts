@@ -57,6 +57,7 @@ export async function POST(request: Request) {
 
       dataToConsider.push({
         ...data[index],
+        id: data[index].ID,
         TAGS_ARRAY: ((data[index].TAGS?.split('|') || [])[0]?.split(',') || []).map(eachTag => eachTag.trim()),
         CREATED_AT_UNIX: moment(data[index].CREATED_AT).unix(),
         UPDATED_AT_UNIX: moment(data[index].UPDATED_AT).unix(),

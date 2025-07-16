@@ -14,9 +14,21 @@ export const { searchClient } = instantMeiliSearch(
     MEILISEARCH_HOST,
     MEILISEARCH_API_KEY, // use server-only admin key
     {
+        primaryKey: 'ID',
+        keepZeroFacets: true,
         finitePagination: true,
-    }
+  }
 );
 
 
 export const MEILISEARCH_PRODUCTS_INDEX = 'products'
+
+// Update faceting settings
+await meilisearchClient.index(MEILISEARCH_PRODUCTS_INDEX).updateFaceting({
+  maxValuesPerFacet: 1000,
+  sortFacetValuesBy: {
+    "*": "alpha",           // Default alphabetical for all facets
+    "TAGS_ARRAY": "count",  // Sort tags by popularity (most used first)
+    "VENDOR": "count"       // Sort vendors by popularity
+  }
+})
