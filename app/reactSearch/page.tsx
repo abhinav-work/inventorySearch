@@ -64,6 +64,7 @@ const SearchPage = () => {
           <div className={styles.rightPanel}>
             <SearchBox />
             <Hits hitComponent={Hit} />
+            <br/>
             <Pagination showLast />
           </div>
         </div>

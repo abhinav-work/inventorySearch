@@ -32,7 +32,9 @@ const Hit = ({ hit }: any) => {
         Description: <Snippet attribute="DESCRIPTION" hit={hit} />
       </div>
 
-      <div className={styles.hitInfo}>Vendor: {hit.VENDOR}</div>
+       <div className={styles.hitInfo}>
+        Vendor: <Highlight attribute="VENDOR" hit={hit} />
+      </div>
 
       <div className={styles.hitInfo}>
         Min Price: {hit.MAX_VARIANT_CURRENCY_CODE} {hit.MIN_VARIANT_PRICE}

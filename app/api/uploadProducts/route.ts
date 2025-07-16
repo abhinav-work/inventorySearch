@@ -46,22 +46,25 @@ export async function POST(request: Request) {
     // console.log(data.length);
     const dataToConsider = [];
     for (let index = 0; index < data.length; index++) {
-      const parsedPriceRange: PriceRange = JSON.parse(data[index].PRICE_RANGE);
-      let featuredImage: FEATURED_IMAGE | undefined;
+      let parsedPriceRange: PriceRange = { min_variant_price: { amount: 0, currency_code: 'USD' }, max_variant_price: { amount: 0, currency_code: 'USD' } },
+        featuredImage: FEATURED_IMAGE = { id: '', url: '', alt_text: '' };
+      if (data[index].PRICE_RANGE) {
+        parsedPriceRange = JSON.parse(data[index].PRICE_RANGE);
+      }
       if (data[index].FEATURED_IMAGE) {
         featuredImage = JSON.parse(data[index].FEATURED_IMAGE);
       }
-      
+
       dataToConsider.push({
         ...data[index],
         TAGS_ARRAY: ((data[index].TAGS?.split('|') || [])[0]?.split(',') || []).map(eachTag => eachTag.trim()),
         CREATED_AT_UNIX: moment(data[index].CREATED_AT).unix(),
         UPDATED_AT_UNIX: moment(data[index].UPDATED_AT).unix(),
-        MIN_VARIANT_PRICE: parsedPriceRange.min_variant_price.amount,
-        MIN_VARIANT_CURRENCY_CODE: parsedPriceRange.min_variant_price.currency_code,
-        MAX_VARIANT_PRICE: parsedPriceRange.max_variant_price.amount,
-        MAX_VARIANT_CURRENCY_CODE: parsedPriceRange.max_variant_price.currency_code,
-        FEATURED_IMAGE_URL: featuredImage?.url || ''
+        MIN_VARIANT_PRICE: parsedPriceRange?.min_variant_price?.amount,
+        MIN_VARIANT_CURRENCY_CODE: parsedPriceRange?.min_variant_price?.currency_code,
+        MAX_VARIANT_PRICE: parsedPriceRange?.max_variant_price?.amount,
+        MAX_VARIANT_CURRENCY_CODE: parsedPriceRange?.max_variant_price?.currency_code,
+        FEATURED_IMAGE_URL: featuredImage?.url
       })
     }
 
@@ -84,7 +87,7 @@ export async function POST(request: Request) {
       'MAX_VARIANT_PRICE',
       'MIN_VARIANT_PRICE'
     ])
-    
+
     const task = await index.addDocuments(dataToConsider, { primaryKey: 'ID' });
     return NextResponse.json({ success: true, message: `Documents import has been ${task.status}` });
 
