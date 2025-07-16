@@ -32,8 +32,8 @@ const SearchPage = () => {
               items={[
                 { value: `${MEILISEARCH_PRODUCTS_INDEX}:CREATED_AT_UNIX:asc`, label: 'Oldest First' },
                 { value: `${MEILISEARCH_PRODUCTS_INDEX}:CREATED_AT_UNIX:desc`, label: 'Latest First' },
-                { value: `${MEILISEARCH_PRODUCTS_INDEX}:MAX_VARIANT_PRICE:desc`, label: 'High to Low' },
                 { value: `${MEILISEARCH_PRODUCTS_INDEX}:MIN_VARIANT_PRICE:asc`, label: 'Low to High' },
+                { value: `${MEILISEARCH_PRODUCTS_INDEX}:MAX_VARIANT_PRICE:desc`, label: 'High to Low' },
               ]}
             />
 
@@ -55,7 +55,7 @@ const SearchPage = () => {
             <RefinementList attribute="TAGS_ARRAY" />
 
             <Configure
-              hitsPerPage={6}
+              hitsPerPage={8}
               attributesToSnippet={['TITLE:20', 'DESCRIPTION:25']}
               snippetEllipsisText="..."
             />

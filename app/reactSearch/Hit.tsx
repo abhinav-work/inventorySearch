@@ -7,18 +7,14 @@ import { capitalizeFirstLetter } from '@/common/functions';
 
 const Hit = ({ hit }: any) => {
   const imageUrl = hit.FEATURED_IMAGE_URL || '/productPlaceHolder.webp';
-  const createdAt = hit.createdAt
-    ? moment(hit.createdAt).format('MMM DD, YYYY')
+  const createdAt = hit.CREATED_AT
+    ? moment(hit.CREATED_AT).format('MMM DD, YYYY')
     : 'N/A';
 
   return (
     <div className={styles.hitCard}>
       <div className={styles.imageWrapper}>
-        <img
-          src={imageUrl}
-          alt={hit.TITLE || 'Product'}
-          className={styles.productImage}
-        />
+        <img src={imageUrl} alt={hit.TITLE || 'Product'} className={styles.productImage} />
         <div className={styles[`${hit.STATUS.toLowerCase()}Badge`]}>
           {capitalizeFirstLetter(hit.STATUS)}
         </div>

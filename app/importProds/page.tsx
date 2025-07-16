@@ -1,11 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import toast from 'react-hot-toast';
 
 const ImportCSV = () => {
-    const [parsedData, setParsedData] = useState<any[]>([]);
-    const [headers, setHeaders] = useState<string[]>([]);
 
     const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -22,7 +20,7 @@ const ImportCSV = () => {
         if (json.success) {
             toast.success(json.message);
         } else {
-            toast.error('Upload failed');
+            toast.error(json.message);
         }
         console.log('Parsing file')
         event.target.value = '';
@@ -41,7 +39,6 @@ const ImportCSV = () => {
             toast.error('Upload failed');
         }
         console.log('Upload response:', json);
-        console.log('Parsing file')
     };
 
     return (

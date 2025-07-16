@@ -1,4 +1,3 @@
-// lib/meili.ts
 import { MeiliSearch } from 'meilisearch';
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 
