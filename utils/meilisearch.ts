@@ -4,13 +4,13 @@ const MEILISEARCH_HOST = process.env.NEXT_PUBLIC_MEILISEARCH_HOST;
 const MEILISEARCH_API_KEY = process.env.NEXT_PUBLIC_MEILISEARCH_API_KEY;
 
 export const meilisearchClient = new MeiliSearch({
-    host: MEILISEARCH_HOST,
+    host: MEILISEARCH_HOST || '',
     apiKey: MEILISEARCH_API_KEY,
 });
 
 
 export const { searchClient } = instantMeiliSearch(
-    MEILISEARCH_HOST,
+    MEILISEARCH_HOST || '',
     MEILISEARCH_API_KEY,
     {
         primaryKey: 'ID',

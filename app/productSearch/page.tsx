@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import 'instantsearch.css/themes/algolia-min.css';
@@ -73,6 +74,7 @@ const SearchPage = () => {
     };
 
     const handleClearInventory = () => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         new Promise(async (resolve, reject) => {
             try {
                 console.log('Clear Inventory Clicked')
@@ -98,7 +100,7 @@ const SearchPage = () => {
 
     return (
         <div className={styles.instantSearch}>
-            <InstantSearch indexName={`${MEILISEARCH_PRODUCTS_INDEX}:CREATED_AT_UNIX:asc`} searchClient={searchClient}>
+            <InstantSearch indexName={`${MEILISEARCH_PRODUCTS_INDEX}:CREATED_AT_UNIX:asc`} searchClient={searchClient as any}>
                 {/* Top Action Bar - New Section */}
                 <div className={styles.topActionBar}>
                     <div className={styles.topActionButtons}>

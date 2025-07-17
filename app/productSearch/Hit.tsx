@@ -6,6 +6,7 @@ import styles from './styles.module.css';
 import { capitalizeFirstLetter } from '@/common/functions';
 import { useState, useEffect } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Hit = ({ hit }: any) => {
     const [isPopupVisible, setIsPopupVisible] = useState(false);
 
@@ -68,7 +69,9 @@ const Hit = ({ hit }: any) => {
                 </div>
 
                 <div className={styles.hitDescription}>
-                    <Snippet attribute="DESCRIPTION" hit={hit} />
+                    <div className={styles.truncatedText}>
+                        <Snippet attribute="DESCRIPTION" hit={hit} /> 
+                    </div>
                 </div>
 
                 <div className={styles.hitInfo}>
